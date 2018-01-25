@@ -1,4 +1,5 @@
 // npm i expect mocha nodemon supertest --save-dev
+// npm run test-watch
 
 const expect = require('expect');
 const request = require('supertest');
