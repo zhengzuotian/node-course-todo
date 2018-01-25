@@ -18,18 +18,9 @@ app.post('/todos', (req, res) => {
     res.status(400).send(e);
   });
 });
- 
+
 app.listen(3000, () => {
   console.log('Started on port 3000');
 });
 
-// var newUser = new User({
-//   email: 'anyone@gmail.com'
-// });
-//
-// newUser.save().then((doc) => {
-//   console.log('Saved user', doc);
-// }, (e) => {
-//   console.log('Unable to save user');
-//   console.log(e);
-// });
+module.exports = {app};
