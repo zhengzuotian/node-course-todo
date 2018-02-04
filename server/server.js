@@ -20,6 +20,7 @@ app.post('/todos', (req, res) => {
   var todo = new Todo(req.body);
 
   todo.save().then((doc) => {
+    console.log('before send', new Date());
     res.send(doc);
   }, (e) => {
     res.status(400).send(e);
