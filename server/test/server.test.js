@@ -294,3 +294,44 @@ describe('POST /users', () => {
       });
   });
 });
+
+
+describe('POST /users/login', () => {
+  it('should login user and return token', (done) => {
+    console.log(users[1]);
+    request(app)
+      .post('/users/login')
+      .send({
+        email: users[1].email,
+        password: users[1].password
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.header['x-auth']).toExist();
+      })
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+
+        user.findById(users[1].id).then((user) => {
+          expect(user.tokens[0]).ToInclude({
+            aceess: 'auth',
+            token: res.headers['x-auth']
+          });
+          done();
+        }).catch((e) => done(e));
+      })
+  });
+
+  it('should reject invalid login', (done) => {
+    request(app)
+      .post('/users/login')
+      .send({
+        email: users[1].email,
+        password: '12312312'
+      })
+      .expect(400)
+      .end(done);
+  })
+});
